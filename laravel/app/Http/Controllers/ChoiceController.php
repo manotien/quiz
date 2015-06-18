@@ -55,7 +55,7 @@ class ChoiceController extends Controller {
 		}
 		$choice->save();
 	
-		return redirect('create/'.$id."/".$id2);
+		return redirect('create/'.$id."/");
 	}
 
 	public function goedit($id,$id2,$id3){
@@ -93,7 +93,7 @@ class ChoiceController extends Controller {
 		}
 		$choice->save();
 	
-		return redirect('create/'.$id."/".$id2);
+		return redirect('create/'.$id."/");
 	}
 
 	public function delete($id,$id2,$id3){
@@ -101,7 +101,7 @@ class ChoiceController extends Controller {
 	
 		$c->delete();
 		
-		return redirect('create/'.$id."/".$id2);
+		return redirect('create/'.$id."/");
 	}
 
 }

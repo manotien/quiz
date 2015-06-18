@@ -23,9 +23,13 @@ class QuizController extends Controller {
 	}
 	public function show($id){
 		$quiz=Quiz::find($id);
-		$quiz->questions;
-		//dd($quiz);
-		return view('create.question')->with("quiz",$quiz);
+		$question=$quiz->questions;
+		$qc=[];
+		foreach ($question as $q) {
+			$qc[$q->id]=$q->choices;
+		}
+		//dd($qc);
+		return view('create.question')->with("quiz",$quiz)->with('choice',$qc);
 	}
 	public function goedit($id){
 		$quiz=Quiz::find($id);

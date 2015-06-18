@@ -24,8 +24,7 @@
 	<h2 align="center">Topic: {{$quiz['name']}} >>>>>> Question: {{$question['name']}}</h2>
 	<div class="question">
 	<?php  $i=0?>
-	<table>
-		
+	<table>	
 		@foreach($question['choices'] as $c)
 		<tr>
 			<td>Choice <?php  $i+=1; echo $i;?>:
@@ -34,7 +33,6 @@
 			<td><button class="t"><a href="/delete/{{$quiz['id']}}/{{$question['id']}}/{{$c->id}}" method="get" onclick="return confirm('Are you sure?');">Delete</a></button></td>
 		</tr>
 		@endforeach
-		
 	</table>
 	<br>
 	</div>
