@@ -25,11 +25,15 @@ class QuizController extends Controller {
 		$quiz=Quiz::find($id);
 		$question=$quiz->questions;
 		$qc=[];
+		$q_id=[];
 		foreach ($question as $q) {
+			if($q->status=="result")
+				$q_id[$q->id]="Result: ".$q->name;
+			else
+				$q_id[$q->id]="Question: ".$q->name;
 			$qc[$q->id]=$q->choices;
 		}
-		//dd($qc);
-		return view('create.question')->with("quiz",$quiz)->with('choice',$qc);
+		return view('create.question')->with("quiz",$quiz)->with('choice',$qc)->with('q_id',$q_id);
 	}
 	public function goedit($id){
 		$quiz=Quiz::find($id);

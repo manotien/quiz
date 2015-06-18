@@ -12,7 +12,7 @@
 			<form method="post" action="/create">
 			Topic Name: <input type="text" name="quiz">
 		@else
-			<form method="get" action="/edit/{{$quiz['id']}}">
+			<form method="post" action="/edit/{{$quiz['id']}}">
 			Topic Name: <input type="text" name="quiz" value="{{$quiz['name']}}">
 		@endif
 		<input type="submit" value="Add">

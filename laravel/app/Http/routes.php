@@ -25,7 +25,7 @@ Route::group(['middleware'=>'auth'],function(){
 	Route::get('create/{id}','QuizController@show');
 	Route::get('delete/{id}','QuizController@delete');
 	Route::get('goedit/{id}','QuizController@goedit');
-	Route::get('edit/{id}','QuizController@edit');
+	Route::post('edit/{id}','QuizController@edit');
 
 
 	Route::post('create/{id}','QuestionController@store');
@@ -33,13 +33,13 @@ Route::group(['middleware'=>'auth'],function(){
 	Route::get('create/{id}/{id2}','QuestionController@show');
 	Route::get('delete/{id}/{id2}','QuestionController@delete');
 	Route::get('goedit/{id}/{id2}','QuestionController@goedit');
-	Route::get('edit/{id}/{id2}','QuestionController@edit');
+	Route::post('edit/{id}/{id2}','QuestionController@edit');
 
 	Route::get('create/{id}/{id2}/choice','ChoiceController@index');
 	Route::post('create/{id}/{id2}','ChoiceController@store');
 	Route::get('delete/{id}/{id2}/{id3}','ChoiceController@delete');
 	Route::get('goedit/{id}/{id2}/{id3}','ChoiceController@goedit');
-	Route::get('edit/{id}/{id2}/{id3}','ChoiceController@edit');
+	Route::post('edit/{id}/{id2}/{id3}','ChoiceController@edit');
 });
 
 

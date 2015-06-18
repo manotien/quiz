@@ -25,8 +25,11 @@
 		}
 		tr.ch{
 			font-size: 75%;
-			
-			
+		
+		}
+		td.go{
+		
+			padding-left: 10px;
 		}
 	</style>
 </head>
@@ -46,10 +49,10 @@
 
 				@foreach($choice[$q->id] as $c)
 					<tr class="ch"> 	
-
 						<td>->choice: {{$c->name}}</td>
 						<td><button class="t"><a href="/goedit/{{$quiz['id']}}/{{$q['id']}}/{{$c->id}}" method="get" >Edit</a></button></td>
 						<td><button class="t"><a href="/delete/{{$quiz['id']}}/{{$q['id']}}/{{$c->id}}" method="get" onclick="return confirm('Are you sure?');">Delete</a></button></td>
+						<td class="go"> <?php try {echo "Go to >>".$q_id[$c->goto];} catch(Exception $e){echo"";} ?></td>
 					</tr>
 				@endforeach
 				<tr class="ch">

@@ -81,7 +81,7 @@
 				</div>
 			</form>
 		@else
-			<form method="get" action="/edit/{{$id}}/{{$id2}}/{{$choice['id']}}">
+			<form method="post" action="/edit/{{$id}}/{{$id2}}/{{$choice['id']}}">
 				<div>
 				<font size="4">Choice Name: </font><input type="text" name="choice" value="{{$choice['name']}}">
 				<br><br>

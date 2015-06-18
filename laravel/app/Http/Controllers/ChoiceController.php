@@ -86,10 +86,18 @@ class ChoiceController extends Controller {
 			$choice->goto=$request->goto;
 		}
 		else{
+
 			$question=Question::find($choice->goto);
+			if($question==null){
+				$question=new Question;
+
+			}
+			$question->quiz_id=$id;
 			$question->name=$request->result;
 			$question->status="result";
+
 			$question->save();
+			$choice->goto=$question->id;
 		}
 		$choice->save();
 	

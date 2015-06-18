@@ -13,7 +13,7 @@
 			Question Name: <input type="text" name="question">
 			<input type="submit" value="Add">
 	@else
-		<form method="get" action="/edit/{{$question['quiz_id']}}/{{$question['id']}}">
+		<form method="post" action="/edit/{{$question['quiz_id']}}/{{$question['id']}}">
 			Question Name: <input type="text" name="question" value="{{$question['name']}}">
 			<input type="submit" value="Edit">
 	@endif
