@@ -110,7 +110,7 @@ class ChoiceController extends Controller {
 	public function edit($id,$id2,$id3,Request $request){
 		// dd($request);
 		$choice=Choice::find($id3);
-		$choice->name=$request->choice;
+		$choice->name=$request->name;
 
 	
 		if($request->way==1){
