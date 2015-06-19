@@ -29,7 +29,16 @@
     padding-left: 0.75em;
     padding-right: 0.75em;
     border: 2px groove (internal value);		
-}
+	}
+	p#err{
+		margin-left: 110px;
+		color: red;
+	}
+	p#e{
+		margin-left: 10px;
+		color: red;
+	}
+	
 	</style>
 	
 </head>
@@ -42,8 +51,13 @@
 		@if($status=="add")
 			<form method="post" action="/create/{{$id}}/{{$id2}}">
 				<div>
-				<font size="4">Choice Name: </font><input type="text" name="choice" >
-				<br><br>
+				<font size="4">Choice Name: </font><input type="text" name="name" >
+				@if(!empty($error) and $error[0]=='The name field is required.')
+					<p id="err">*{{$error[0]}}</p>
+				@else
+					<br>
+				@endif
+				<br>
 				<div>
 					<input type="radio" name="way" value="1" onclick="dis_end()">
 					<div class="next">
@@ -73,7 +87,12 @@
 					<fieldset id="end">
 					<legend>End</legend>
 						<textarea rows="10" cols="50" name="result"></textarea>
-					<br><br>
+							@if(!empty($error) and ($error[0]=='The result field is required.' or (count($error)==2 and $error[1]=='The result field is required.')))
+								<p id="e">*{{$error[count($error)-1]}}</p>
+							@else
+								<br>
+							@endif
+						<br>
 					</fieldset>
 			
 				</div>
@@ -83,7 +102,7 @@
 		@else
 			<form method="post" action="/edit/{{$id}}/{{$id2}}/{{$choice['id']}}">
 				<div>
-				<font size="4">Choice Name: </font><input type="text" name="choice" value="{{$choice['name']}}">
+				<font size="4">Choice Name: </font><input type="text" name="name" value="{{$choice['name']}}">
 				<br><br>
 				<div>
 					@if($go==1)

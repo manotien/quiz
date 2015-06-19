@@ -1,7 +1,8 @@
 <?php namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Validator;
 use App\Http\Requests;
 use Illuminate\Http\Request;
+use App\Http\Requests\NameRequest;
 use App\Http\Controllers\Controller;
 use App\Quiz;
 use App\Question;
@@ -14,8 +15,19 @@ class QuizController extends Controller {
 	}
 
 	public function store(Request $request){
+
+		$v = Validator::make($request->all(), [
+	        'name' => 'required'
+	   	]);
+		if ($v->fails())
+  	    {
+  	    	$error = $v->messages()->all();
+  	    	//dd($error);
+    		return view('create.addquiz')->with('status','add')->with('error',$error);
+    	}
+
 		$quiz=new Quiz;
-		$quiz->name=$request->quiz;
+		$quiz->name=$request->name;
 		$quiz->save();
 
 		return redirect('create');
@@ -42,7 +54,18 @@ class QuizController extends Controller {
 	}
 	public function edit($id,Request $request){
 		$quiz=Quiz::find($id);
-		$quiz->name=$request->quiz;
+		$v = Validator::make($request->all(), [
+	        'name' => 'required'
+	   	]);
+		if ($v->fails())
+  	    {
+  	    	$error = $v->messages()->all();
+  	    	//dd($error);
+    		return view('create.addquiz')->with('status','edit')->with('error',$error)->with('quiz',$quiz);
+    	}
+
+		
+		$quiz->name=$request->name;
 		
 		$quiz->save();
 		return redirect('create');

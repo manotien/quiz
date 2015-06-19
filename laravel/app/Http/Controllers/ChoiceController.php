@@ -6,7 +6,7 @@ use App\Quiz;
 use App\Question;
 use App\Choice;
 use Illuminate\Http\Request;
-
+use Validator;
 class ChoiceController extends Controller {
 
 	/**
@@ -25,10 +25,6 @@ class ChoiceController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function create()
-	{
-		//
-	}
 
 	/**
 	 * Store a newly created resource in storage.
@@ -37,21 +33,56 @@ class ChoiceController extends Controller {
 	 */
 	public function store($id,$id2,Request $request)
 	{
-
 		$choice=new Choice;
-		$choice->name=$request->choice;
+		$choice->name=$request->name;
 		$choice->question_id=$id2;
-	
 		if($request->way==1){
+			$v = Validator::make($request->all(), [
+	        	'name' => 'required',
+		   
+		   	]);
+			if ($v->fails())
+	  	    {
+	  	    	$question=Quiz::find($id)->questions;
+	  	    	$error = $v->messages()->all();
+	  	    	//dd($error);
+	    		return view('create.addchoice')->with('id',$id)->with('id2',$id2)->with('question',$question)->with('status','add')->with('error',$error);
+	    	}
+	    	
+			
 			$choice->goto=$request->goto;
 		}
-		else{
+		else if($request->way==2){
+			$v = Validator::make($request->all(), [
+	        	'name' => 'required',
+		   		'result' =>'required'
+		   	]);
+			if ($v->fails())
+	  	    {
+	  	    	$question=Quiz::find($id)->questions;
+	  	    	$error = $v->messages()->all();
+	  	    	//dd($error);
+	    		return view('create.addchoice')->with('id',$id)->with('id2',$id2)->with('question',$question)->with('status','add')->with('error',$error);
+	    	}
 			$question=new Question;
 			$question->name=$request->result;
 			$question->status="result";
 			$question->quiz_id=$id;
 			$question->save();
 			$choice->goto=$question->id;
+		}
+		else{
+			$v = Validator::make($request->all(), [
+	        	'name' => 'required',
+		   
+		   	]);
+			if ($v->fails())
+	  	    {
+	  	    	$question=Quiz::find($id)->questions;
+	  	    	$error = $v->messages()->all();
+	  	    	//dd($error);
+	    		return view('create.addchoice')->with('id',$id)->with('id2',$id2)->with('question',$question)->with('status','add')->with('error',$error);
+	    	}
 		}
 		$choice->save();
 	

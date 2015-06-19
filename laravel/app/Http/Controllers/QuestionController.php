@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Quiz;
 use App\Question;
 use Illuminate\Http\Request;
-
+use Validator;
 class QuestionController extends Controller {
 
 	/**
@@ -24,10 +24,7 @@ class QuestionController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function create()
-	{
-		return view('question.create')->with('status','add');
-	}
+
 
 	/**
 	 * Store a newly created resource in storage.
@@ -36,6 +33,16 @@ class QuestionController extends Controller {
 	 */
 	public function store($id,Request $request)
 	{
+		$v = Validator::make($request->all(), [
+	        'name' => 'required'
+	   	]);
+		if ($v->fails())
+  	    {
+  	    	$error = $v->messages()->all();
+  	    	//dd($error);
+    		return view('create.addquestion')->with('id',$id)->with('status','add')->with('error',$error);
+    	}
+
 		$quiz=Quiz::find($id)->questions;
 		$question=new Question;
 		
@@ -46,7 +53,7 @@ class QuestionController extends Controller {
 			$question->status="first";
 		}
 		//dd($question);
-		$question->name=$request->question;
+		$question->name=$request->name;
 		$question->quiz_id=$id;
 		$question->save();
 
@@ -94,7 +101,18 @@ class QuestionController extends Controller {
 
 	public function edit($id,$id2,Request $request){
 		$question=Question::find($id2);
-		$question->name=$request->question;
+		$v = Validator::make($request->all(), [
+	        'name' => 'required'
+	   	]);
+		if ($v->fails())
+  	    {
+  	    	$error = $v->messages()->all();
+  	    	//dd($error);
+    		return view('create.addquestion')->with('id',$id)->with('status','edit')->with('error',$error)->with('question',$question);
+    	}
+
+		
+		$question->name=$request->name;
 		$question->save();
 		return redirect('create/'.$id); 
 	}
