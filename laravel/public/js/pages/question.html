@@ -1,0 +1,51 @@
+<h1 align="center">Topic: {{question.name}}</h1>
+<br><br>
+<div class="container">
+	<div ng-repeat="qn in question.questions" ng-if="qn.status!='result'">
+	<div class="panel panel-default" >
+		<div class="panel-heading" ng-click="isCollapsed = !isCollapsed">
+
+			<div class="row" >
+				<div class="col-sm-10">
+					<h4 class="panel-title" ><span collapse="isCollapsed">▶</span><span collapse="!isCollapsed">▼</span> Question : {{qn.name}}</h4>
+				</div>
+				<div class="col-sm-2">
+					<div align="right">
+						<button class='btn btn-info' ng-click="editquestion(qn.id,$index,qn.name)">Edit</button>
+						<button class='btn btn-danger' ng-click="delquestion(qn.id,$index);">Delete</button>
+						
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<div collapse="!isCollapsed"  >
+			<div class="panel-body">
+		
+				<div class="row" ng-repeat="ch in qn.choices">
+					<div class="col-sm-10">
+					Choice : <a href="" ng-if="ch.gostatus==='first' || ch.gostatus==='next'"><span custom-popover popover-html="Go to Question : {{ch.goname}}" popover-placement="bottom" popover-label="{{ch.name}}"> </span></a><a href="" ng-if="ch.gostatus==='result'"><span custom-popover popover-html="Go to Result : {{ch.goname}}" popover-placement="bottom" popover-label="{{ch.name}}"> </span></a>
+
+					<a href="" ng-if="!ch.hasOwnProperty('gostatus')"><span custom-popover popover-html="Go to doesn't exist" popover-placement="bottom" popover-label="{{ch.name}}"> </span></a>
+
+					</div class="col-sm-2" >
+						<div align="center">
+						<button class="btn btn-info" ng-click="editchoice(qn.id,ch.id,$parent.$index,$index,ch.name)">Edit</button>
+						<button class="btn btn-danger" ng-click="delchoice(qn.id,ch.id,$parent.$index,$index)">Delete</button>
+						</div>
+					<div>
+						<br>	
+					</div>
+					
+				</div>
+				
+				<button collapse="!isCollapsed" class='btn btn-primary' ng-click="addchoice(qn.id,$index)">Add Choice</button>
+
+			</div>
+		</div>
+		
+	</div>
+	</div>
+	<button class="btn btn-primary" ng-click="addques()">Add Question</button>
+	<button class="btn btn-warning" class="back" onclick="location.href='#add'">Back</button>
+</div>

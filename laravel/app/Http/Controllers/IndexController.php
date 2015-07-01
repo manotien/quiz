@@ -17,8 +17,14 @@ class IndexController extends Controller {
 	public function index()
 	{
 		$quiz=Quiz::all();
-	
-		return view('index')->with('quiz',$quiz);
+		foreach ($quiz as $qz) {
+			$q=$qz->questions;
+			
+			foreach ($q as $qn) {
+				$qn->choices;
+			}
+		}
+		return $quiz;
 	}
 
 	public function store()

@@ -1,0 +1,21 @@
+Choice Name: <input type="text" name="name" ng-model="cho">
+<br>
+<input type="radio" name="chose" ng-model="show" value="true" ng-checked="c1">Next
+<input type="radio" name="chose" ng-model="show" value="false" ng-checked="c2">End
+<br>
+<div ng-show="show=='true'" >
+	Go:<br>
+	<select ng-model="ques" ng-options="q.name group by q.status for q in qn"></select>
+
+</div>
+
+<div ng-show="show=='false'">
+	<p>End...</p>
+	<textarea rows="10" cols="40" ng-model="ending"></textarea>
+</div>
+
+
+<br>
+<br>
+<button ng-click="editc()" class="btn btn-info" ng-disabled="click">Edit</button> 
+<button ng-click="close()" class="btn btn-warning">Close</button>

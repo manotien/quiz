@@ -11,14 +11,29 @@
 |
 */
 
-Route::get('/', 'WelcomeController@index');
 
-Route::get('/index','IndexController@index');
+Route::get('/getquiz','IndexController@index');
+
+Route::get('/getquestion/{id}','QuizController@showfirst');
+
+Route::get('getchoice/{id}','EditController@getchoice');
 Route::get('home', 'HomeController@index');
-Route::get('index/{id}','IndexController@showfirst');
-Route::get('indexgo','IndexController@shownext');
 
-Route::group(['middleware'=>'auth'],function(){
+
+Route::post('addquiz','AddController@addquiz');
+Route::post('addquestion/{id}','AddController@addquestion');
+Route::post('addchoice/{id}/{id2}','AddController@addchoice');
+
+Route::get('deltopic/{id}','DeleteController@topic');
+Route::get('delquestion/{id}/{id2}','DeleteController@question');
+Route::get('delchoice/{id}/{id2}/{id3}','DeleteController@choice');
+
+Route::post('edittopic/{id}','EditController@topic');
+Route::post('editquestion/{id}/{id2}','EditController@question');
+Route::post('editchoice/{id}/{id2}/{id3}','EditController@choice');
+
+
+//Route::group(['middleware'=>'auth'],function(){
 	Route::get('create','CreateController@index');
 	Route::get('create/quiz','QuizController@index');
 	Route::post('create','QuizController@store');
@@ -40,8 +55,8 @@ Route::group(['middleware'=>'auth'],function(){
 	Route::get('delete/{id}/{id2}/{id3}','ChoiceController@delete');
 	Route::get('goedit/{id}/{id2}/{id3}','ChoiceController@goedit');
 	Route::post('edit/{id}/{id2}/{id3}','ChoiceController@edit');
-});
-
+//});
+Route::get('{any}', 'WelcomeController@index')->where('any', '.*');
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',

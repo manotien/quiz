@@ -1,0 +1,18 @@
+
+<div class="container">
+	<h1 align="center">Manage Quiz</h1>
+	
+	<br>
+	
+	<br>
+
+	<div ng-app="myApp" ng-controller="AddQuizController">
+		<div class="row" ng-repeat="q in quiz" >
+			<div class="col-sm-8"><a ng-href="#add/{{q.id}}" class="topic">{{$index+1}} : {{q.name}}</a></div>
+			<div class="col-sm-2"><button class="btn btn-info" ng-click="edittopic(q.name,q.id,$index)">Edit</button> <button class="btn btn-danger" ng-click="deltopic(q.id,$index);">Delete</button></div>
+			<br><br><br>
+		</div>
+	</div>
+	<br>
+	<button class="btn btn-primary" ng-click="addtopic()">Add Topic</button>
+</div>

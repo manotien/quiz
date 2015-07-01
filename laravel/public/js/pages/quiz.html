@@ -1,0 +1,36 @@
+
+<h2 align="center">{{quiz.name}}</h2>
+<div class='container'>
+	<hr>
+	<br>
+	<div ng-if="qstatus=='notend'">
+		<div class="row">
+			<div class="col-sm-1"></div>
+			<div class="col-sm-10">
+			<div class="panel panel-default">
+				<div class="panel-heading" style="background-color:; ">
+					<h4>Question: {{question}}</h4>
+				</div>
+				<div class="penal-body" style="background-color:;">
+					<br>
+					<div ng-repeat="c in choices">
+						
+						<button class="btn btn-xlarge center-block" ng-click="next(c.goto)">{{c.name}}</button>
+						<br>
+					</div>
+				
+				</div>
+			</div>
+			</div>
+		</div>
+	</div>
+
+	<div ng-if="qstatus==='end'">
+		<h3 style="margin-left: 100px">Result:</h3>
+		<br>
+		<p style="margin-left: 150px; font-size:16px">{{question}}</p>
+		<br><br>
+		<button style="margin-left: 100px" class="btn btn-warning" onclick="location.href='#index' ">Back</button>
+	</div>
+</div>
+

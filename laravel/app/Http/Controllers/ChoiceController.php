@@ -119,9 +119,11 @@ class ChoiceController extends Controller {
 		else{
 
 			$question=Question::find($choice->goto);
-			if($question==null){
+			if($question->status=="result"){
+				//
+			}
+			else{
 				$question=new Question;
-
 			}
 			$question->quiz_id=$id;
 			$question->name=$request->result;

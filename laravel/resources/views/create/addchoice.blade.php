@@ -96,7 +96,7 @@
 					</fieldset>
 			
 				</div>
-				<input type="submit" value="Add" > <button ><a href="/create/{{$id}}/{{$id2}}">Back</a></button>
+				<input type="submit" value="Add" > <button ><a href="/create/{{$id}}/">Back</a></button>
 				</div>
 			</form>
 		@else
@@ -154,7 +154,7 @@
 					</fieldset>
 			
 				</div>
-				<input type="submit" value="Edit" > <button ><a href="/create/{{$id}}/{{$id2}}">Back</a></button>
+				<input type="submit" value="Edit" > <button ><a href="/create/{{$id}}/">Back</a></button>
 				</div>
 			</form>
 		@endif
