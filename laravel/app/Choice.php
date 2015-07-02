@@ -7,6 +7,6 @@ class Choice extends Model {
 	//
 
 	public function question(){
-		return $this->belongTo('App\Question');
+		return $this->belongsTo('App\Question');
 	}
 }

@@ -1,5 +1,6 @@
 
 <h2 align="center">{{quiz.name}}</h2>
+
 <div class='container'>
 	<hr>
 	<br>
@@ -13,12 +14,23 @@
 				</div>
 				<div class="penal-body" style="background-color:;">
 					<br>
-					<div ng-repeat="c in choices">
-						
-						<button class="btn btn-xlarge center-block" ng-click="next(c.goto)">{{c.name}}</button>
+					<div class="choice-box" ng-repeat="c in choices">
+
+							<a href="" ng-hide="c.status" ng-click="clickshow($index)"><span class="glyphicon glyphicon-remove-circle size-icon-no" aria-hidden="true"></span></a>
+							<a href="" ng-show="c.status" ng-click="clickshow($index)"><span class="glyphicon glyphicon-ok-circle size-icon-yes" aria-hidden="true"></span></a>
+
+  							<div class="choice-ans"><span class="ans">{{ c.name }}</span></div>
+							
+		
 						<br>
+
 					</div>
-				
+					<div class="row">
+						<div class="col-sm-10"></div>
+						<div class="col-sm-2" align="center"><button class="btn btn-primary btn-question" ng-click="next()">Submit</button></div>
+						
+					</div>
+
 				</div>
 			</div>
 			</div>
@@ -32,5 +44,7 @@
 		<br><br>
 		<button style="margin-left: 100px" class="btn btn-warning" onclick="location.href='#index' ">Back</button>
 	</div>
+
+
 </div>
 

@@ -15,7 +15,9 @@ class AddController extends Controller {
 		//dd($request->name);
 		$quiz=new Quiz;
 		$quiz->name=$request->name;
+		$quiz->picture_id=$request->pic;
 		$quiz->save();
+		$quiz->picture;
 		return $quiz;
 	}
 
@@ -58,6 +60,7 @@ class AddController extends Controller {
 		if($choice->goto!=null){
 			$choice->goname=Question::find($choice->goto)->name;
 			$choice->gostatus=Question::find($choice->goto)->status;
+			$choice->goid=Question::find($choice->goto)->id;
 		}
 		return $choice;
 	}

@@ -10,4 +10,7 @@ class Quiz extends Model {
 	public function questions(){
 		return $this->hasMany('App\Question');
 	}
+	public function picture(){
+		return $this->belongsTo('App\Picture');
+	}
 }

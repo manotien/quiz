@@ -17,6 +17,7 @@ class QuizController extends Controller {
 				if($c->goto!=null){
 					$c->goname=Question::find($c->goto)->name;
 					$c->gostatus=Question::find($c->goto)->status;
+					$c->goid=Question::find($c->goto)->id;
 				}
 			}
 		}

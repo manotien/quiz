@@ -1,14 +1,33 @@
-<h1 align="center">Topic: {{question.name}}</h1>
+<div popover-close exclude-class="exclude">
+<h1 align="center">Quiz: {{question.name}}</h1>
 <br><br>
-<div class="container">
-	<div ng-repeat="qn in question.questions" ng-if="qn.status!='result'">
-	<div class="panel panel-default" >
-		<div class="panel-heading" ng-click="isCollapsed = !isCollapsed">
+	<script type="text/ng-template" id="myPopoverTemplate.html">
+		<div ng-if="inpopover.stat=='next'">
+	    	<a href="" ng-click="goquestion(inpopover.index)">Go to Question : {{inpopover.name}}</a>
+	    </div>
+	    <div ng-if="inpopover.stat=='end'">
 
-			<div class="row" >
-				<div class="col-sm-10">
-					<h4 class="panel-title" ><span collapse="isCollapsed">▶</span><span collapse="!isCollapsed">▼</span> Question : {{qn.name}}</h4>
+	    	<a href="" ng-click="editchoice(inpopover.qn,inpopover.ch,inpopover.index,inpopover.index2,inpopover.cname)">Go to Result : {{inpopover.name}}</a>
+	    </div>
+
+	    <div ng-if="inpopover.stat=='no'">
+	    	<a href="">Go to doesn't exist</a'>
+	    </div>
+    
+	</script>
+<div class="container" >
+
+
+	<div ng-repeat="qn in question.questions" >
+	<div id="{{$index}}" ng-if="qn.status!='result'">
+	<div class="panel panel-default" >
+		<div class="row" >
+			<div class="panel-heading"  >
+
+				<div class="col-sm-10" ng-click="qn.show = !qn.show" >
+					<h4 class="panel-title" ><span collapse="qn.show">▶</span><span collapse="!qn.show">▼</span> Question : {{qn.name}}</h4>
 				</div>
+
 				<div class="col-sm-2">
 					<div align="right">
 						<button class='btn btn-info' ng-click="editquestion(qn.id,$index,qn.name)">Edit</button>
@@ -19,16 +38,28 @@
 
 			</div>
 		</div>
-		<div collapse="!isCollapsed"  >
+		<div collapse="!qn.show"  >
 			<div class="panel-body">
 		
 				<div class="row" ng-repeat="ch in qn.choices">
 					<div class="col-sm-10">
-					Choice : <a href="" ng-if="ch.gostatus==='first' || ch.gostatus==='next'"><span custom-popover popover-html="Go to Question : {{ch.goname}}" popover-placement="bottom" popover-label="{{ch.name}}"> </span></a><a href="" ng-if="ch.gostatus==='result'"><span custom-popover popover-html="Go to Result : {{ch.goname}}" popover-placement="bottom" popover-label="{{ch.name}}"> </span></a>
+					<div style="margin-left:30px">
+					Choice : 
 
-					<a href="" ng-if="!ch.hasOwnProperty('gostatus')"><span custom-popover popover-html="Go to doesn't exist" popover-placement="bottom" popover-label="{{ch.name}}"> </span></a>
 
-					</div class="col-sm-2" >
+					<a href="" ng-if="ch.gostatus==='first' || ch.gostatus==='next'">
+						<button ng-click="showpop(ch.goname,'next',ch.goid)" popover-placement="right" popover-template="dynamicPopover.templateUrl"  class="btn btn-link" popover-elem >{{ch.name}}</button>
+					</a>
+
+					<a href="" ng-if="ch.gostatus==='result'">
+						<button ng-click="showpop1(ch.goname,'end',qn.id,ch.id,$parent.$parent.$index,$index,ch.name)" popover-placement="right" popover-template="dynamicPopover.templateUrl"  class="btn btn-link" popover-elem>{{ch.name}}</button>
+					</a>
+
+					<a href="" ng-if="!ch.hasOwnProperty('gostatus')">
+						<button ng-click="showpop(ch.goname,'no',ch.goid)" popover-placement="right" popover-template="dynamicPopover.templateUrl"  class="btn btn-link" popover-elem>{{ch.name}}</button>
+					</a>
+					</div>
+					</div>
 						<div align="center">
 						<button class="btn btn-info" ng-click="editchoice(qn.id,ch.id,$parent.$index,$index,ch.name)">Edit</button>
 						<button class="btn btn-danger" ng-click="delchoice(qn.id,ch.id,$parent.$index,$index)">Delete</button>
@@ -39,13 +70,14 @@
 					
 				</div>
 				
-				<button collapse="!isCollapsed" class='btn btn-primary' ng-click="addchoice(qn.id,$index)">Add Choice</button>
+				<button collapse="!qn.show" class='btn btn-primary' ng-click="addchoice(qn.id,$index)">Add Choice</button>
 
 			</div>
 		</div>
 		
 	</div>
 	</div>
+	</div>
 	<button class="btn btn-primary" ng-click="addques()">Add Question</button>
 	<button class="btn btn-warning" class="back" onclick="location.href='#add'">Back</button>
-</div>
+</div></<div>

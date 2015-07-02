@@ -3,18 +3,20 @@
 <div class='container' >
 	
 	
-	<div class="row" ng-repeat="q in quiz" >
-
-		<hr>
-
-		<div class='col-sm-10'>
-			
-			<p class="topic" ><a ng-href="#index/{{q.id}}">{{$index+1}} : {{q.name}}</a></p>
+	<div class="row">
+		<div ng-repeat="q in quiz" class="col-md-4">
+			<a ng-href="#index/{{q.id}}" class="thumbnail">
+				<img src="{{q.picture.url}}" >
+				<p class="topic" >{{q.name}}</p>
+			</a>
 			
 		</div>
-		
-		
 	</div>
-	<hr>
+		
 </div>
+
+
+
+	
+
 	

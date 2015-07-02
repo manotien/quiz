@@ -1,5 +1,37 @@
+<div class="container">
+Topic Name: <input type="text" name="name" ng-model="toname" placeholder="Topic name">
+<div ng-show="!show" class="row pic-box">
+	<div class="col-sm-2">
+		<button ng-click="show=true" class="btn btn-info">Change Picture</button> 
+	</div>
 
-Topic Name: <input type="text" name="name" ng-model="toname" >
+	<div class="col-sm-2">
+	<img class="pic-size" ng-src="{{pic_url}}">
+	</div>
+</div>
+
+<div ng-show="show">
+	<div class="row pic-box">
+			<div class="col-sm-2">
+
+				<div class="form-group">
+
+					<label>Choose picture</label>
+					<select ng-model="model" class="form-control" >
+						<option  ng-repeat="p in pic" ng-value="p.id">Picture : {{ $index + 1 }}</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="col-sm-2">
+				<img class="pic-size" ng-if="model == null" src="http://static1.squarespace.com/static/53813d36e4b06dea67332107/t/53842cb5e4b0ded88d264752/1401061821128/How_Do_I.png">
+				<img ng-if="model != null" class="pic-size" ng-src="{{urlPic}}">
+			</div>
+	</div>
+</div>
+<br>
 
 <button ng-click="edit()" ng-disabled="click" class="btn btn-info">Edit</button> 
 <button ng-click="close()" class="btn btn-warning">Close</button>
+	
+	

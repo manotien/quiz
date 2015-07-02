@@ -12,6 +12,9 @@
 */
 
 
+Route::get('/gettopic','IndexController@getTopic');
+Route::get('/getpic','IndexController@getpic');
+
 Route::get('/getquiz','IndexController@index');
 
 Route::get('/getquestion/{id}','QuizController@showfirst');

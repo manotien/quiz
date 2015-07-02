@@ -1,13 +1,25 @@
 var app=angular.module('myApp',['ngRoute','ngDialog','ui.bootstrap']);
 
 app.controller('IndexController',function($scope,$http){
-	$http.get('/getquiz')
-	.success(function(response) {
-		$scope.quiz = response;
+	$http.get('/gettopic')
+	.success(function(data) {
+		$scope.quiz = data;
 
+		
 	});
 });
 app.controller('QuizController',['$scope','$http','$routeParams',function($scope,$http,$routeParems){
+	$scope.status = false;
+
+	$scope.clickshow = function(index) {
+		$scope.choices[index].status=!$scope.choices[index].status;
+		for(var i=0;i<$scope.choices.length;i++){	
+			if(i!=index){
+				$scope.choices[i].status=false;
+			}
+		}
+	}
+	
 	$http.get('/getquestion/'+ $routeParems.qzid)
 	.success(function(data){
 
@@ -15,31 +27,51 @@ app.controller('QuizController',['$scope','$http','$routeParams',function($scope
 		for(var q in data.questions){
 			if(data.questions[q].status=="first"){
 				var firstq=data.questions[q];
-				var find=1;
+				var find=true;
 				break;
 			}
 		}
-		if(find==1){
+		if(find){
 			$scope.question=firstq.name;
 			$scope.choices=firstq.choices;
+			for(var i=0; i<$scope.choices.length;i++)
+			{
+				$scope.choices[i].status=false;
+			}
 			$scope.qstatus="notend";
 		}
-		$scope.next=function(go){
-		
-			var gonext = go;
-			for(var q in data.questions){
-				if(data.questions[q].id==gonext){
-					var newq=data.questions[q];
-
-					if(newq.status=="next"){
-						$scope.question=newq.name;
-						$scope.choices=newq.choices;
-					}
-					else{
-						$scope.qstatus="end";
-						$scope.question=newq.name;
+		$scope.next=function(){
+			var check=0;
+			for(var i=0;i<$scope.choices.length;i++){	
+				if($scope.choices[i].status){
+					var gonext = $scope.choices[i].goto;
+					check=1;
+					break;
+				}
+			}
+			if(check){
+				console.log(gonext);
+				for(var q in data.questions){
+					if(data.questions[q].id==gonext){
+						var newq=data.questions[q];
+						console.log(newq.status);
+						for(var i=0; i<$scope.choices.length;i++)
+						{
+							$scope.choices[i].status=false;
+						}
+						if(newq.status!="result"){
+							$scope.question=newq.name;
+							$scope.choices=newq.choices;
+						}
+						else{
+							$scope.qstatus="end";
+							$scope.question=newq.name;
+						}
 					}
 				}
+			}
+			else{
+				alert('Please Choose Answer!!!');
 			}
 
 		}
@@ -48,11 +80,18 @@ app.controller('QuizController',['$scope','$http','$routeParams',function($scope
 }]);
 	
 app.controller('CreateController',['$scope','$http','ngDialog',function($scope,$http,ngDialog){
-	$http.get('/getquiz')
+	$http.get('/getpic')
 	.success(function(data) {
-		$scope.quiz = data;
+		$scope.pic=data;
 	});
+
+	$http.get('/gettopic')
+	.success(function(data) {
+		$scope.quiz=data;
+	});
+
 	$scope.addtopic=function(){
+
 		ngDialog.openConfirm(
 			{
 				template: 'js/pages/addtopic.html',
@@ -65,11 +104,11 @@ app.controller('CreateController',['$scope','$http','ngDialog',function($scope,$
 			}
 		);
 	}
-	$scope.edittopic=function(name,qid,index){
+	$scope.edittopic=function(name,qid,index,purl){
 		$scope.topname=name;
 		$scope.quiz_id=qid;
 		$scope.quiz_index=index;
-
+		$scope.pic_url=purl;
 		ngDialog.openConfirm(
 			{
 				template: 'js/pages/edittopic.html',
@@ -94,19 +133,46 @@ app.controller('CreateController',['$scope','$http','ngDialog',function($scope,$
 }]);
 
 app.controller('AddQuizController',['$scope','$http','$routeParams','$location','ngDialog',function($scope,$http,$routeParems,$location,ngDialog){
-	$scope.add=function(){
-		$scope.click=true;
-		$http({
-       		method: 'post',
-       		url: "/addquiz",
-       		data:{ name: $scope.topic}
- 		})
- 		.success(function(data) {
- 			$scope.quiz.push(data);
-			//window.location.reload();
-			ngDialog.close();
+	$scope.urlPic = "";
+	$scope.tmp = [];
 
-		});
+	if($scope.pic!=undefined){
+		for(var i = 0 ; i < $scope.pic.length ; i++)
+		{
+			$scope.tmp[$scope.pic[i].id] = {};
+			$scope.tmp[$scope.pic[i].id].id = $scope.pic[i].id;
+			$scope.tmp[$scope.pic[i].id].url= $scope.pic[i].url;
+		}
+
+		$scope.$watch('model', function() {
+			if($scope.model != undefined)
+			{
+				$scope.urlPic = $scope.tmp[parseInt($scope.model)].url;
+			}
+		})
+	}
+	$scope.add=function(){
+		if($scope.model == null || $scope.topic == undefined)
+		{
+			alert("Please enter information");
+		}
+		else
+		{
+			$scope.click=true;
+			$http({
+	       		method: 'post',
+	       		url: "/addquiz",
+	       		data:{ name: $scope.topic,
+	       				pic: $scope.model
+	       		}
+	 		})
+	 		.success(function(data) {
+	 			$scope.quiz.push(data);
+				//window.location.reload();
+				ngDialog.close();
+
+			});
+		}
 		
 	}
 	$scope.close=function(){
@@ -130,18 +196,63 @@ app.controller('AddQuizController',['$scope','$http','$routeParams','$location',
 	}
 }]);
 
-app.controller('AddQuestionController',['$scope','$http','$routeParams','ngDialog',function($scope,$http,$routeParems,ngDialog){
+app.controller('AddQuestionController',['$scope','$http','$routeParams','$location','ngDialog','$anchorScroll',function($scope,$http,$routeParems,$location,ngDialog,$anchorScroll){
 	$http.get('/getquestion/'+ $routeParems.qzid)
 	.success(function(data){
 		$scope.question=data;
-	
+		for(var i=0;i<$scope.question.questions.length;i++){
+			$scope.question.questions[i].show=false;
+		}
+		
 	});
-	$scope.status = {
-    	isFirstOpen: true,
-    	isFirstDisabled: false
+
+
+  	$scope.dynamicPopover = {
+    	content: 'Hello, World!',
+    	templateUrl: 'myPopoverTemplate.html',
+
   	};
+  	$scope.showpop=function(name,stat,index){
+
+  		$scope.inpopover = {
+	    	name:name,
+	    	stat:stat,
+	    	index:index
+  		}
+  	}
+    $scope.showpop1=function(name,stat,qn,ch,index,index2,cname){
+
+  		$scope.inpopover = {
+	    	name:name,
+	    	stat:stat,
+	    	qn:qn,
+	    	ch:ch,
+	    	index:index,
+	    	index2:index2,
+	    	cname:cname
+  		}
+  	}
+
+  	$scope.goquestion=function(id){
+  		for(var i=0 ;i<$scope.question.questions.length;i++){
+  	
+  			if(id==$scope.question.questions[i].id){
+  				id=i;
+  				$scope.question.questions[id].show=true;
+  				break;
+  			}
+  		}
 
 
+
+		var old = $location.hash();
+		$location.hash(id);
+	    $anchorScroll();
+	    
+	    $location.hash(old);
+		
+
+  	}
 	var qid=$routeParems.qzid;
 	$scope.close=function(){
 		ngDialog.close();
@@ -263,8 +374,7 @@ app.controller('AddQuestionController',['$scope','$http','$routeParams','ngDialo
 					       		data: data
 						 	})
 					 		.success(function(data) {
-					 			//console.log(data);
-					 			
+ 			
 					 			$scope.question.questions[index].choices.push(data);
 
 								ngDialog.close();
@@ -390,20 +500,40 @@ app.controller('AddQuestionController',['$scope','$http','$routeParams','ngDialo
 }]);
 
 
-app.directive('customPopover', function () {
-    return {
-        restrict: 'A',
-        template: '<span>{{label}}</span>',
-        link: function (scope, el, attrs) {
-            scope.label = attrs.popoverLabel;
-            $(el).popover({
-                trigger: 'click',
-                html: true,
-                content: attrs.popoverHtml,
-                placement: attrs.popoverPlacement
-            });
+app.directive('popoverClose', function($timeout){
+  return{
+    scope: {
+      excludeClass: '@'
+    },
+    link: function(scope, element, attrs) {
+      var trigger = document.getElementsByClassName('trigger');
+      
+      function closeTrigger(i) {
+        $timeout(function(){ 
+          angular.element(trigger[0]).triggerHandler('click').removeClass('trigger'); 
+        });
+      }
+      
+      element.on('click', function(event){
+        var etarget = angular.element(event.target);
+        var tlength = trigger.length;
+        if(!etarget.hasClass('trigger') && !etarget.hasClass(scope.excludeClass)) {
+          for(var i=0; i<tlength; i++) {
+            closeTrigger(i)
+          }
         }
-    };
+      });
+    }
+  };
+});
+app.directive('popoverElem', function(){
+  return{
+    link: function(scope, element, attrs) {
+      element.on('click', function(){
+        element.addClass('trigger');
+      });
+    }
+  };
 });
 
 app.config(['$routeProvider',

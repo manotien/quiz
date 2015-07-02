@@ -29,7 +29,7 @@
 		
 		<script src="js/app.js"></script>
 
-		
+	
 		
 			
 		<style >
@@ -70,7 +70,9 @@
 			}
 			.topic{
 				
-				font-size: 22px;
+				font-size: 18px;
+				text-align: center;
+				margin-top: 15px;
 
 			}
 			.question{
@@ -99,6 +101,81 @@
 				font-size: 96px;
 				margin-left: auto;
    				margin-right: auto;
+			}
+
+			.size-icon-no
+			{
+				font-size: 30px;
+				color: red;
+			}
+
+			.size-icon-no:hover
+			{
+				color: #FF3366;
+			}
+
+			.size-icon-yes
+			{
+				font-size: 30px;
+				color: green;
+			}
+
+			.size-icon-yes:hover
+			{
+				color: #00ff66;
+			}
+
+			.choice-box
+			{
+				display: flex;
+				
+				margin: 20px;
+				margin-right: 100px;
+				margin-left: 100px;
+				vertical-align: center;
+
+			}
+
+			.choice-ans
+			{
+				display: block;
+				background: #F0F0F0 ;
+				margin-left: 30px;
+				width: 650px;
+				padding: 10px;
+				border-radius: 10px;
+
+				
+			}
+
+			span.ans
+			{
+				margin-left: 20px;
+			}
+
+			.btn-question
+			{
+				margin-bottom: 10px;
+				margin-top: 10px;
+			}
+
+			.pic-size
+			{
+				width: 200px;
+				height: 180px;
+			}
+
+			.pic-box
+			{
+				margin-top: 30px;
+			}
+
+			.space
+			{
+				margin: 50px;
+			}
+			.show-pic-size{
+				height: 180px;
 			}
 
 		</style>

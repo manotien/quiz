@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Quiz;
 use App\Question;
 use App\Choice;
+use App\Picture;
 class IndexController extends Controller {
 
 	/**
@@ -25,6 +26,19 @@ class IndexController extends Controller {
 			}
 		}
 		return $quiz;
+	}
+
+	public function getpic(){
+		$pic = Picture::all();
+
+		return $pic;
+	}
+	public function getTopic()
+	{
+
+		$pic = Quiz::with("picture")->get();
+
+		return $pic;
 	}
 
 	public function store()
