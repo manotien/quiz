@@ -57,7 +57,7 @@ class AddController extends Controller {
 			//
 		}
 		$choice->save();
-		if($choice->goto!=null){
+		if($choice->goto!=0){
 			$choice->goname=Question::find($choice->goto)->name;
 			$choice->gostatus=Question::find($choice->goto)->status;
 			$choice->goid=Question::find($choice->goto)->id;

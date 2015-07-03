@@ -14,7 +14,10 @@ class EditController extends Controller {
 		
 		$quiz=Quiz::find($id);
 		$quiz->name=$request->name;
+		$quiz->picture_id=$request->pic;
 		$quiz->save();
+		$quiz->picture;
+
 		return $quiz;
 	}
 
@@ -51,7 +54,7 @@ class EditController extends Controller {
 			$choice->goto=$question->id;
 		}
 		$choice->save();
-		if($choice->goto!=null){
+		if($choice->goto!=null && $choice->goto!=0){
 			$choice->goname=Question::find($choice->goto)->name;
 			$choice->gostatus=Question::find($choice->goto)->status;
 			$choice->id=Question::find($choice->goto)->id;
