@@ -11,7 +11,7 @@
 	    </div>
 
 	    <div ng-if="inpopover.stat=='no'">
-	    	<a href="">Go to doesn't exist</a'>
+	    	<a href="" ng-click="editchoice(inpopover.qn,inpopover.ch,inpopover.index,inpopover.index2,inpopover.cname)">Go to doesn't exist</a'>
 	    </div>
     
 	</script>
@@ -56,7 +56,7 @@
 					</a>
 
 					<a href="" ng-if="!ch.hasOwnProperty('gostatus')">
-						<button ng-click="showpop(ch.goname,'no',ch.goid)" popover-placement="right" popover-template="dynamicPopover.templateUrl"  class="btn btn-link" popover-elem>{{ch.name}}</button>
+						<button ng-click="showpop1(ch.goname,'no',qn.id,ch.id,$parent.$parent.$index,$index,ch.name)" popover-placement="right" popover-template="dynamicPopover.templateUrl"  class="btn btn-link" popover-elem>{{ch.name}}</button>
 					</a>
 					</div>
 					</div>
