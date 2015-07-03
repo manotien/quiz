@@ -5,7 +5,7 @@ Choice Name: <input type="text" name="name" ng-model="choice" placeholder="Choic
 <br>
 <div ng-show="show=='true'">
 	Go:<br>
-	<select ng-model="ques" ng-options="q.name group by q.status for q in qn"></select>
+	<select class="select-choice"  ng-model="ques" ng-options="q.name group by q.status for q in qn"></select>
 </div>
 
 
@@ -13,7 +13,7 @@ Choice Name: <input type="text" name="name" ng-model="choice" placeholder="Choic
 	<br>
 	<div class="btn-group"  ng-init="ss=false">
         <label class="btn btn-primary" ng-model="ss" btn-radio="true" >Choose Exist Result</label>
-        {{ss}}
+
         <label class="btn btn-primary" ng-model="ss" btn-radio="false">Edit Result</label>
 
     </div>
@@ -22,7 +22,7 @@ Choice Name: <input type="text" name="name" ng-model="choice" placeholder="Choic
 
 	<br>
 	<div ng-show="ss">
-		<select ng-model="res" ng-options="r.name group by r.status for r in rs"></select>
+		<select class="select-choice"  ng-model="res" ng-options="r.name group by r.status for r in rs"></select>
 
 	</div>
 
