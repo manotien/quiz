@@ -57,13 +57,14 @@ class EditController extends Controller {
 		if($choice->goto!=null && $choice->goto!=0){
 			$choice->goname=Question::find($choice->goto)->name;
 			$choice->gostatus=Question::find($choice->goto)->status;
-			$choice->id=Question::find($choice->goto)->id;
+			$choice->goid=Question::find($choice->goto)->id;
 		}
 		return $choice;	
 	}
 
 	public function getchoice($id){
 		$choice=Choice::find($id);
+		//dd($choice);
 		$question=Question::find($choice->goto);
 		if($question!=null){
 			if($question->status=='result'){

@@ -14,9 +14,9 @@ class QuizController extends Controller {
 		$question=$quiz->questions;
 
 		foreach ($question as $q) {
-			$q=$q->choices;	
+			$qa=$q->choices;	
 
-			foreach ($q as $c) {
+			foreach ($qa as $c) {
 				if($c->goto!=null && $c->goto!=0){
 					$c->goname=Question::find($c->goto)->name;
 					$c->gostatus=Question::find($c->goto)->status;

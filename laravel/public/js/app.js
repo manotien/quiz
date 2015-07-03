@@ -50,11 +50,11 @@ app.controller('QuizController',['$scope','$http','$routeParams',function($scope
 				}
 			}
 			if(check){
-				console.log(gonext);
+				//console.log(gonext);
 				for(var q in data.questions){
 					if(data.questions[q].id==gonext){
 						var newq=data.questions[q];
-						console.log(newq.status);
+						//console.log(newq.status);
 						for(var i=0; i<$scope.choices.length;i++)
 						{
 							$scope.choices[i].status=false;
@@ -237,7 +237,6 @@ app.controller('AddQuestionController',['$scope','$http','$routeParams','$locati
 
   	};
   	$scope.showpop=function(name,stat,index){
-
   		$scope.inpopover = {
 	    	name:name,
 	    	stat:stat,
@@ -245,7 +244,7 @@ app.controller('AddQuestionController',['$scope','$http','$routeParams','$locati
   		}
   	}
     $scope.showpop1=function(name,stat,qn,ch,index,index2,cname){
-
+   
   		$scope.inpopover = {
 	    	name:name,
 	    	stat:stat,
@@ -398,7 +397,7 @@ app.controller('AddQuestionController',['$scope','$http','$routeParams','$locati
 					       		data: data
 						 	})
 					 		.success(function(data) {
- 								console.log($scope.question.questions[index]);
+ 			
 					 			$scope.question.questions[index].choices.push(data);
 
 								ngDialog.close();
@@ -501,6 +500,7 @@ app.controller('AddQuestionController',['$scope','$http','$routeParams','$locati
 						 	})
 					 		.success(function(data) {
 					 			//$scope.question.questions[index].choices[index2].name=data.name;
+					 	
 					 			$scope.question.questions[index].choices[index2]=data;
 					 			ngDialog.close();
 							});		
