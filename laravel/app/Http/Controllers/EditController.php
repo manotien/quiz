@@ -34,7 +34,7 @@ class EditController extends Controller {
 		$choice->name=$request->name;
 
 		//dd($request);
-		if($request->way==1){
+		if($request->way==1 || $request->way==3){
 			$choice->goto=$request->go;
 		}
 		else if($request->way==0){

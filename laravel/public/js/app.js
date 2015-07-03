@@ -358,15 +358,23 @@ app.controller('AddQuestionController',['$scope','$http','$routeParams','$locati
 				scope:$scope,
 				controller: ['$scope','$http','ngDialog',function($scope,$http,ngDialog){
 					$http.get('/getquestion/'+qid).success(function(data){ 
+						$scope.qn=[];
+						$scope.rs=[];
 						for(var i=0;i<data.questions.length;i++){
-							if(data.questions[i].status=='result')
-								data.questions[i].status="Result";
-							else
+							if(data.questions[i].status=='result'){
+								data.questions[i].status='Result';
+								$scope.rs.push(data.questions[i]);
+							}
+							else{
 								data.questions[i].status="Question";
+								$scope.qn.push(data.questions[i]);
+							}
 						}
-						$scope.qn=data.questions;
+
 						$scope.addc=function(){
+
 							$scope.click=true;
+
 							var data;
 							if($scope.show=='true'){
 								data={
@@ -377,12 +385,21 @@ app.controller('AddQuestionController',['$scope','$http','$routeParams','$locati
 								}
 							}
 							else if($scope.show=="false"){
-								data={
-									name: $scope.choice,
-									way: 0,
-									end:$scope.ending
+	
+								if($scope.ss){
+									data={
+										name: $scope.choice,
+										way: 1,
+										go: $scope.res.id,
+									}
 								}
-							
+								else{
+									data={
+										name: $scope.choice,
+										way: 0,
+										end:$scope.ending
+									}
+								}
 							}
 							else{
 								data={
@@ -438,27 +455,47 @@ app.controller('AddQuestionController',['$scope','$http','$routeParams','$locati
 				scope:$scope,
 				controller: ['$scope','$http','ngDialog',function($scope,$http,ngDialog){
 					$http.get('/getquestion/'+qid).success(function(data){ 
+						$scope.qn=[];
+						$scope.rs=[];
 						for(var i=0;i<data.questions.length;i++){
-							if(data.questions[i].status=='result')
-								data.questions[i].status="Result";
-							else
+							if(data.questions[i].status=='result'){
+								data.questions[i].status='Result';
+								$scope.rs.push(data.questions[i]);
+							}
+							else{
 								data.questions[i].status="Question";
+								$scope.qn.push(data.questions[i]);
+							}
 						}
-						$scope.qn=data.questions;
+
 						var dataq=data.questions;
 						$http.get('/getchoice/'+ch).success(function(data){
 							if(data.way==0){
-								$scope.ending=data.name;
+								$scope.ss=false;
+								for(var i=0;i<dataq.length;i++){
+									if(dataq[i].name==data.name){
+										$scope.res=dataq[i];		
+										break;
+									}
+								}
+								if($scope.ss){	
+									//
+									
+								}
+								else{
+									$scope.ending=data.name;
+								}
 								$scope.show='false';
 								$scope.c2=true;
 							}
 							else if(data.way==1){
+
 								$scope.show='true';
 								$scope.c1=true;
+
 								for(var i=0;i<dataq.length;i++){
 									if(dataq[i].name==data.name){
 										$scope.ques=dataq[i];		
-								
 										break;
 									}
 								}
@@ -479,10 +516,21 @@ app.controller('AddQuestionController',['$scope','$http','$routeParams','$locati
 								}
 							}
 							else if($scope.show=="false"){
-								data={
-									name: $scope.cho,
-									way: 0,
-									end:$scope.ending
+								if(!$scope.ss){
+									data={
+										name: $scope.cho,
+										way: 0,
+										end:$scope.ending
+									}
+								}
+								else{
+						
+									data={
+										name: $scope.cho,
+										go: $scope.res.id,
+										way:3,
+									}
+								
 								}
 							
 							}
@@ -500,7 +548,7 @@ app.controller('AddQuestionController',['$scope','$http','$routeParams','$locati
 						 	})
 					 		.success(function(data) {
 					 			//$scope.question.questions[index].choices[index2].name=data.name;
-					 	
+				
 					 			$scope.question.questions[index].choices[index2]=data;
 					 			ngDialog.close();
 							});		

@@ -5,13 +5,31 @@ Choice Name: <input type="text" name="name" ng-model="cho" placeholder="Choice n
 <br>
 <div ng-show="show=='true'" >
 	Go:<br>
-	<select class="select-choice" ng-model="ques" ng-options="q.name group by q.status for q in qn"></select>
+	<select ng-model="ques" ng-options="q.name group by q.status for q in qn"></select>
 
 </div>
 
 <div ng-show="show=='false'">
-	<p>End...</p>
-	<textarea rows="10" cols="40" ng-model="ending"></textarea>
+<br>
+	<div class="btn-group"  ng-init="ss=false">
+        <label class="btn btn-primary" ng-model="ss" btn-radio="true" >Choose Exist Result</label>
+
+        <label class="btn btn-primary" ng-model="ss" btn-radio="false">Add New Result</label>
+
+    </div>
+
+	<br>
+
+	<br>
+	<div ng-show="ss">
+		<select ng-model="res" ng-options="r.name group by r.status for r in rs"></select>
+
+	</div>
+
+	<div ng-show="!ss">
+		<textarea  rows="10" cols="40" ng-model="ending"></textarea>
+	</div>
+
 </div>
 
 
