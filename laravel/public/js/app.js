@@ -181,18 +181,42 @@ app.controller('AddQuizController',['$scope','$http','$routeParams','$location',
 	$scope.toname=$scope.topname;
 
 	$scope.edit=function(){
+		if($scope.toname == undefined)
+		{
+			alert("Please enter information");
+		}
+		else{
 
-		$http({
-       		method: 'post',
-       		url: "/edittopic/"+$scope.quiz_id,
-       		data:{ name:$scope.toname }
- 		})
- 		.success(function(data) {
- 			$scope.quiz[$scope.quiz_index].name=data.name;
-			//window.location.reload();
-			ngDialog.close();
+			if($scope.model==undefined){
+				$http({
+		       		method: 'post',
+		       		url: "/edittopic/"+$scope.quiz_id,
+		       		data:{ name:$scope.toname }
+		 		})
+		 			.success(function(data) {
+	 			$scope.quiz[$scope.quiz_index].name=data.name;
+	 	
+				//window.location.reload();
+				ngDialog.close();
 
-		});
+			});
+			}
+			else{
+				$http({
+		       		method: 'post',
+		       		url: "/edittopic/"+$scope.quiz_id,
+		       		data:{ name:$scope.toname,pic: $scope.model }
+		 		})
+		 		.success(function(data) {
+	 			$scope.quiz[$scope.quiz_index].name=data.name;
+	 			$scope.quiz[$scope.quiz_index].picture=data.picture;
+				//window.location.reload();
+				ngDialog.close();
+
+			});
+			}
+	 	
+ 		}
 	}
 }]);
 
@@ -273,7 +297,7 @@ app.controller('AddQuestionController',['$scope','$http','$routeParams','$locati
 				       		data: {name: $scope.questions}
 				 		})
 				 		.success(function(data) {
-				 			
+				 			data.choices=[];
 							$scope.question.questions.push(data);
 
 							//window.location.reload();
@@ -374,7 +398,7 @@ app.controller('AddQuestionController',['$scope','$http','$routeParams','$locati
 					       		data: data
 						 	})
 					 		.success(function(data) {
- 			
+ 								console.log($scope.question.questions[index]);
 					 			$scope.question.questions[index].choices.push(data);
 
 								ngDialog.close();
