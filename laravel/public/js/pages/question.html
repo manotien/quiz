@@ -48,16 +48,16 @@
 
 					
 					<a href="" ng-if="ch.gostatus==='first' || ch.gostatus==='next'">
-						<button ng-click="showpop(ch.goname,'next',ch.goid)" popover-placement="right" popover-template="dynamicPopover.templateUrl"  class="btn btn-link" popover-elem >{{ch.name}}</button>
+						<button ng-click="showpop(ch.goname,'next',ch.goid)" popover-placement="right" popover-template="dynamicPopover.templateUrl"  class="btn btn-link" >{{ch.name}}</button>
 					</a>
 
 					<a href="" ng-if="ch.gostatus==='result'">
-						<button ng-click="showpop1(ch.goname,'end',qn.id,ch.id,$parent.$parent.$index,$index,ch.name)" popover-placement="right" popover-template="dynamicPopover.templateUrl"  class="btn btn-link" popover-elem>{{ch.name}}</button>
+						<button ng-click="showpop1(ch.goname,'end',qn.id,ch.id,$parent.$parent.$index,$index,ch.name)" popover-placement="right" popover-template="dynamicPopover.templateUrl"  class="btn btn-link">{{ch.name}}</button>
 						
 					</a>
 
 					<a href="" ng-if="!ch.hasOwnProperty('gostatus')">
-						<button ng-click="showpop1(ch.goname,'no',qn.id,ch.id,$parent.$parent.$index,$index,ch.name)" popover-placement="right" popover-template="dynamicPopover.templateUrl"  class="btn btn-link" popover-elem>{{ch.name}}</button>
+						<button ng-click="showpop1(ch.goname,'no',qn.id,ch.id,$parent.$parent.$index,$index,ch.name)" popover-placement="right" popover-template="dynamicPopover.templateUrl"  class="btn btn-link" >{{ch.name}}</button>
 					</a>
 					</div>
 					</div>
