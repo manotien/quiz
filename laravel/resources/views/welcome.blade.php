@@ -178,6 +178,27 @@
 				height: 180px;
 			}
 
+			.choose
+			{
+				cursor: pointer;;
+			}
+
+			.btn-al
+			{
+				margin-top: -5px;
+				margin-bottom: 5px;
+			}
+
+			.footer
+			{
+				margin-bottom: 80px;
+			}
+
+			.ques-space
+			{
+				margin-top: 50px;
+			}
+
 		</style>
 		
 		
@@ -218,6 +239,6 @@
 		</div>
 	</nav>
 			<div ng-view></div>
-
+			<div class="footer"></div>
 	</body>
 </html>
