@@ -17,7 +17,7 @@ class PictureTableSeeder extends Seeder {
 		] );
 
 		Picture::create( [
-		    'url' => "files/pictures/Axis.Powers:.Hetalia.full.1459842.jpg"
+		    'url' => "files/pictures/Axis-Powers-Hetalia-full-1459842.jpg"
 		] );
 
 		Picture::create( [
