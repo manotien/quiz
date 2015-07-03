@@ -5,7 +5,7 @@ Choice Name: <input type="text" name="name" ng-model="cho" placeholder="Choice n
 <br>
 <div ng-show="show=='true'" >
 	Go:<br>
-	<select ng-model="ques" ng-options="q.name group by q.status for q in qn"></select>
+	<select class="select-choice" ng-model="ques" ng-options="q.name group by q.status for q in qn"></select>
 
 </div>
 

@@ -155,7 +155,7 @@
 
 			.btn-question
 			{
-				margin-bottom: 10px;
+				margin-bottom: 30px;
 				margin-top: 10px;
 			}
 
@@ -197,6 +197,16 @@
 			.ques-space
 			{
 				margin-top: 50px;
+			}
+
+			.btn-q
+			{
+				margin-top: 50px;
+			}
+
+			.select-choice
+			{
+				width: 420px;
 			}
 
 		</style>
