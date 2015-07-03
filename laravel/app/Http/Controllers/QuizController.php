@@ -7,12 +7,15 @@ use App\Http\Controllers\Controller;
 use App\Quiz;
 use App\Question;
 use App\Choice;
+
 class QuizController extends Controller {
 	public function showfirst($id){
 		$quiz=Quiz::find($id);
 		$question=$quiz->questions;
+
 		foreach ($question as $q) {
 			$q=$q->choices;	
+
 			foreach ($q as $c) {
 				if($c->goto!=null && $c->goto!=0){
 					$c->goname=Question::find($c->goto)->name;
@@ -21,6 +24,7 @@ class QuizController extends Controller {
 				}
 			}
 		}	
+
 		return $quiz;
 	}
 
