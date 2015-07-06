@@ -1,20 +1,8 @@
 <div popover-close exclude-class="exclude">
 <h1 align="center">Quiz: {{question.name}}</h1>
 <br><br>
-	<script type="text/ng-template" id="myPopoverTemplate.html">
-		<div ng-if="inpopover.stat=='next'">
-	    	<a href="" ng-click="goquestion(inpopover.index)">Go to Question : {{inpopover.name}}</a>
-	    </div>
-	    <div ng-if="inpopover.stat=='end'">
 
-	    	<a href="" ng-click="editchoice(inpopover.qn,inpopover.ch,inpopover.index,inpopover.index2,inpopover.cname)">Go to Result : {{inpopover.name}}</a>
-	    </div>
-
-	    <div ng-if="inpopover.stat=='no'">
-	    	<a href="" ng-click="editchoice(inpopover.qn,inpopover.ch,inpopover.index,inpopover.index2,inpopover.cname)">Go to doesn't exist</a'>
-	    </div>
-    
-	</script>
+	
 <div class="container" >
 
 
@@ -48,16 +36,16 @@
 
 					
 					<a href="" ng-if="ch.gostatus==='first' || ch.gostatus==='next'">
-						<button ng-click="showpop(ch.goname,'next',ch.goid)" popover-placement="right" popover-template="dynamicPopover.templateUrl"  class="btn btn-link" tooltip="Go to Question : {{ch.goname}}">{{ch.name}}</button>
+						<button ng-click="goquestion(ch.goid)"  class="btn btn-link" tooltip="Go to Question : {{ch.goname}}">{{ch.name}}</button>
 					</a>
 
 					<a href="" ng-if="ch.gostatus==='result'" >
-						<button ng-click="showpop1(ch.goname,'end',qn.id,ch.id,$parent.$parent.$index,$index,ch.name)" popover-placement="right" popover-template="dynamicPopover.templateUrl"  class="btn btn-link" tooltip="Go to Result : {{ch.goname}}">{{ch.name}}</button>
+						<button ng-click="editchoice(qn.id,ch.id,$parent.$index,$index,ch.name)"  class="btn btn-link" tooltip="Go to Result : {{ch.goname}}">{{ch.name}}</button>
 						
 					</a>
 
 					<a href="" ng-if="!ch.hasOwnProperty('gostatus')">
-						<button ng-click="showpop1(ch.goname,'no',qn.id,ch.id,$parent.$parent.$index,$index,ch.name)" popover-placement="right" popover-template="dynamicPopover.templateUrl"  class="btn btn-link" tooltip="Go to doesn't exist">{{ch.name}}</button>
+						<button ng-click="editchoice(qn.id,ch.id,$parent.$index,$index,ch.name)"  class="btn btn-link" tooltip="Go to doesn't exist">{{ch.name}}</button>
 					</a>
 					</div>
 					</div>
@@ -86,4 +74,4 @@
 		<button class="btn btn-warning" class="back" onclick="location.href='#add'">Back</button>
 </div>
 	
-</div></<div>
+</div>

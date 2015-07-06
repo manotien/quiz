@@ -231,30 +231,6 @@ app.controller('AddQuestionController',['$scope','$http','$routeParams','$locati
 	});
 
 
-  	$scope.dynamicPopover = {
-    	content: 'Hello, World!',
-    	templateUrl: 'myPopoverTemplate.html',
-
-  	};
-  	$scope.showpop=function(name,stat,index){
-  		$scope.inpopover = {
-	    	name:name,
-	    	stat:stat,
-	    	index:index
-  		}
-  	}
-    $scope.showpop1=function(name,stat,qn,ch,index,index2,cname){
-   
-  		$scope.inpopover = {
-	    	name:name,
-	    	stat:stat,
-	    	qn:qn,
-	    	ch:ch,
-	    	index:index,
-	    	index2:index2,
-	    	cname:cname
-  		}
-  	}
 
   	$scope.goquestion=function(id){
   		for(var i=0 ;i<$scope.question.questions.length;i++){
@@ -299,7 +275,7 @@ app.controller('AddQuestionController',['$scope','$http','$routeParams','$locati
 				 			data.choices=[];
 							$scope.question.questions.push(data);
 
-							//window.location.reload();
+
 							ngDialog.close();
 						});	
 					}
@@ -578,23 +554,26 @@ app.directive('popoverClose', function($timeout){
       excludeClass: '@'
     },
     link: function(scope, element, attrs) {
-      var trigger = document.getElementsByClassName('trigger');
-      
-      function closeTrigger(i) {
-        $timeout(function(){ 
-          angular.element(trigger[0]).triggerHandler('click').removeClass('trigger'); 
-        });
-      }
-      
-      element.on('click', function(event){
-        var etarget = angular.element(event.target);
-        var tlength = trigger.length;
-        if(!etarget.hasClass('trigger') && !etarget.hasClass(scope.excludeClass)) {
-          for(var i=0; i<tlength; i++) {
-            closeTrigger(i)
-          }
-        }
-      });
+		var trigger = document.getElementsByClassName('trigger');
+
+		function closeTrigger(i) {
+			$timeout(function(){ 
+			  angular.element(trigger[0]).triggerHandler('click').removeClass('trigger'); 
+			});
+		}
+
+		element.on('click', function(event){
+			var etarget = angular.element(event.target);
+			var tlength = trigger.length;
+			if(!etarget.hasClass('trigger') && !etarget.hasClass(scope.excludeClass)) {
+			  for(var i=0; i<tlength; i++) {
+			    closeTrigger(i)
+			  }
+			}
+			element.on('click', function(){
+		        element.addClass('trigger');
+	      	});
+		});
     }
   };
 });
