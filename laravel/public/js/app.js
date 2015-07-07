@@ -210,7 +210,7 @@ app.controller('AddQuizController',['$scope','$http','$routeParams','$location',
 		 		.success(function(data) {
 	 			$scope.quiz[$scope.quiz_index].name=data.name;
 	 			$scope.quiz[$scope.quiz_index].picture=data.picture;
-				//window.location.reload();
+
 				ngDialog.close();
 
 			});
@@ -605,7 +605,10 @@ app.config(['$routeProvider',
 
 	.when('/add',{
 		templateUrl:'js/pages/add.html',
-		controller: 'CreateController'
+		controller: 'CreateController',
+		access: {
+            requiresLogin: true
+        }
 	})
 	.when('/add/:qzid', {
 		templateUrl:'js/pages/question.html',

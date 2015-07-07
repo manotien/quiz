@@ -17,6 +17,7 @@ class CreateQuizzesTable extends Migration {
 			$table->increments('id');
 			$table->string('name');
 			$table->integer('picture_id');
+			$table->integer('user_id');
 			$table->timestamps();
 		});
 	}

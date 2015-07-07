@@ -59,9 +59,10 @@ Route::post('editchoice/{id}/{id2}/{id3}','EditController@choice');
 	Route::get('goedit/{id}/{id2}/{id3}','ChoiceController@goedit');
 	Route::post('edit/{id}/{id2}/{id3}','ChoiceController@edit');
 //});
-Route::get('{any}', 'WelcomeController@index')->where('any', '.*');
-
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
 ]);
+
+Route::get('{any}', 'WelcomeController@index')->where('any', '.*');
+

@@ -1,10 +1,11 @@
+
+<div class='container' >
 <h1 align="center">Quiz</h1>
 <br>
-<div class='container' >
-	
+
 	
 	<div class="row">
-		<div ng-repeat="q in quiz" class="col-md-4">
+		<div ng-repeat="q in quiz" class="col-md-4 ques-space">
 			<a ng-href="#index/{{q.id}}" class="thumbnail">
 				<img src="{{q.picture.url}}" >
 				<p class="topic" >{{q.name}}</p>
