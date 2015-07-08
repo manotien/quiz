@@ -63,10 +63,10 @@ Route::group(['middleware'=>'auth'],function(){
 	Route::get('goedit/{id}/{id2}/{id3}','ChoiceController@goedit');
 	Route::post('edit/{id}/{id2}/{id3}','ChoiceController@edit');
 //});
+
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
 ]);
 
 Route::get('{any}', 'WelcomeController@index')->where('any', '.*');
-

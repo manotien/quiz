@@ -79,7 +79,7 @@ app.controller('QuizController',['$scope','$http','$routeParams',function($scope
 	
 }]);
 	
-app.controller('CreateController',['$scope','$http','ngDialog','$location','$window',function($scope,$http,ngDialog,$location,$window){
+app.controller('CreateController',['$scope','$http','ngDialog','$location','$window',function($scope,$http,ngDialog,$location, $window){
 	$http.get('/auth/getpic_quiz')
 	.success(function(data) {
 		//console.log(data);
@@ -90,7 +90,7 @@ app.controller('CreateController',['$scope','$http','ngDialog','$location','$win
 
 		if(status ==401){
 			$location.path("/auth/login");
-			$window.location.reload()
+			$window.location.reload();
 		}
 
 	})
@@ -606,7 +606,9 @@ app.config(['$routeProvider', '$locationProvider',
 		templateUrl:'js/pages/quiz.html',
 		controller: 'QuizController'
 	})	
+	.when('/auth/login', {
 
+	})	
 	.when('/add',{
 		templateUrl:'js/pages/add.html',
 		controller: 'CreateController',
@@ -616,7 +618,9 @@ app.config(['$routeProvider', '$locationProvider',
 		templateUrl:'js/pages/question.html',
 		controller: 'AddQuestionController'
 	})	
-
+	.otherwise({
+		redirectTo: '/'
+	});
 	$locationProvider.html5Mode(true);
 	
 }]);
