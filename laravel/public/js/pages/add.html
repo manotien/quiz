@@ -9,7 +9,7 @@
 	<div ng-app="myApp" ng-controller="AddQuizController">
 		<div class="row">
 			<div ng-repeat="q in quiz" class="col-xs-6 col-md-4 ques-space">
-				<a ng-href="#add/{{q.id}}" class="thumbnail">
+				<a href="add/{{q.id}}" class="thumbnail">
 					<img src="{{q.picture.url}}" class="show-pic-size">
 					<p class="topic" >{{q.name}}</p>
 				</a>

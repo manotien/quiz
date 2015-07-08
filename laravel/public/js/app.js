@@ -79,16 +79,21 @@ app.controller('QuizController',['$scope','$http','$routeParams',function($scope
 	
 }]);
 	
-app.controller('CreateController',['$scope','$http','ngDialog',function($scope,$http,ngDialog){
-	$http.get('/getpic')
+app.controller('CreateController',['$scope','$http','ngDialog','$location','$window',function($scope,$http,ngDialog,$location,$window){
+	$http.get('/auth/getpic_quiz')
 	.success(function(data) {
-		$scope.pic=data;
-	});
+		//console.log(data);
+		$scope.pic=data.pic;
+		$scope.quiz=data.quiz;
+	})
+	.error(function(data,status){
 
-	$http.get('/gettopic')
-	.success(function(data) {
-		$scope.quiz=data;
-	});
+		if(status ==401){
+			$location.path("/auth/login");
+			$window.location.reload()
+		}
+
+	})
 
 	$scope.addtopic=function(){
 
@@ -587,8 +592,8 @@ app.directive('popoverElem', function(){
   };
 });
 
-app.config(['$routeProvider',
-	function($routeProvider){
+app.config(['$routeProvider', '$locationProvider',
+	function($routeProvider, $locationProvider){
 	$routeProvider
 	.when('/', {
 		templateUrl:'js/pages/home.html'
@@ -602,17 +607,16 @@ app.config(['$routeProvider',
 		controller: 'QuizController'
 	})	
 
-
 	.when('/add',{
 		templateUrl:'js/pages/add.html',
 		controller: 'CreateController',
-		access: {
-            requiresLogin: true
-        }
+
 	})
 	.when('/add/:qzid', {
 		templateUrl:'js/pages/question.html',
 		controller: 'AddQuestionController'
 	})	
+
+	$locationProvider.html5Mode(true);
 	
 }]);

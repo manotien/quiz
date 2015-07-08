@@ -17,10 +17,12 @@ class QuizController extends Controller {
 			$qa=$q->choices;	
 
 			foreach ($qa as $c) {
-				if($c->goto!=null && $c->goto!=0){
-					$c->goname=Question::find($c->goto)->name;
-					$c->gostatus=Question::find($c->goto)->status;
-					$c->goid=Question::find($c->goto)->id;
+				$c->question;
+
+				if($c->question!=null){
+					$c->goname=$c->question->name;
+					$c->gostatus=$c->question->status;
+					$c->goid=$c->question->id;
 				}
 			}
 		}	

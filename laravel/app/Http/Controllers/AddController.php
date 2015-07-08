@@ -8,13 +8,17 @@ use App\Quiz;
 use App\Question;
 use App\Choice;
 
+use Auth;
+
 class AddController extends Controller {
 
 	public function addquiz(Request $request)
 	{
-		//dd($request->name);
+
+		$user=Auth::user();
 		$quiz=new Quiz;
 		$quiz->name=$request->name;
+		$quiz->user_id=$user->id;
 		$quiz->picture_id=$request->pic;
 		$quiz->save();
 		$quiz->picture;

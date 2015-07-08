@@ -3,11 +3,15 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use Auth;
+
 use Illuminate\Http\Request;
 use App\Quiz;
 use App\Question;
 use App\Choice;
 use App\Picture;
+use App\User;
+	
 class IndexController extends Controller {
 
 	/**
@@ -15,6 +19,20 @@ class IndexController extends Controller {
 	 *
 	 * @return Response
 	 */
+
+	public function getpic_quiz(){
+		$u=Auth::user();
+		$quiz=$u->quiz;
+		foreach($quiz as $us){
+			$us->quiz;
+			$us->picture;
+		}
+
+		$pic = Picture::all();
+		return compact('pic','quiz');
+
+	}
+
 	public function index()
 	{
 		$quiz=Quiz::all();
@@ -28,6 +46,7 @@ class IndexController extends Controller {
 		return $quiz;
 	}
 
+
 	public function getpic(){
 		$pic = Picture::all();
 
@@ -36,9 +55,13 @@ class IndexController extends Controller {
 	public function getTopic()
 	{
 
-		$pic = Quiz::with("picture")->get();
-
-		return $pic;
+		$quiz = Quiz::all();
+		foreach ($quiz as $q) {
+			$q->picture;
+			$q->user;
+		}
+		
+		return $quiz;
 	}
 
 	public function store()

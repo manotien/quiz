@@ -40,7 +40,9 @@ class Authenticate {
 			}
 			else
 			{
-				return redirect()->guest('auth/login');
+				return response('Unauthorized.', 401);
+
+				//return redirect()->guest('auth/login');
 			}
 		}
 

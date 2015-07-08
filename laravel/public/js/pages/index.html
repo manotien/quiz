@@ -6,9 +6,9 @@
 	
 	<div class="row">
 		<div ng-repeat="q in quiz" class="col-md-4 ques-space">
-			<a ng-href="#index/{{q.id}}" class="thumbnail">
+			<a href="index/{{q.id}}" class="thumbnail">
 				<img src="{{q.picture.url}}" >
-				<p class="topic" >{{q.name}}</p>
+				<p class="topic" >{{q.name}} <span style="color:black">  By  {{q.user.name}}</span></p>
 			</a>
 			
 		</div>
