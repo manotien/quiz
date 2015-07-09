@@ -10,9 +10,13 @@
 		<link rel="stylesheet" href="css/ngDialog-theme-plain.css">
 		<link rel="stylesheet" href="css/nsPopover.css">
 		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<link rel="stylesheet" href="css/angular-chart.css">
 
+
+		<script src="js/Chart.js"></script>
 		<script src="js/angular.min.js"></script>
 		<script src="js/angular-route.js"></script>
+
 
 		<script src="js/ui-bootstrap-tpls-0.13.0.min.js"></script>
 		<script src="js/buttons.js"></script>
@@ -20,7 +24,7 @@
 
 		<script src="js/jquery-2.1.0.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>
-
+		<script src="js/angular-chart.js"></script>
 			
 		<script src="js/ngDialog.js"></script>
 		<script src="js/ngDialog.min.js"></script>

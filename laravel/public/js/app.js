@@ -1,4 +1,4 @@
-var app=angular.module('myApp',['ngRoute','ngDialog','ui.bootstrap']);
+var app=angular.module('myApp',['ngRoute','ngDialog','ui.bootstrap','chart.js']);
 
 app.controller('IndexController',function($scope,$http){
 	$http.get('/gettopic')
@@ -229,8 +229,12 @@ app.controller('AddQuestionController',['$scope','$http','$routeParams','$locati
 	$http.get('/getquestion/'+ $routeParems.qzid)
 	.success(function(data){
 		$scope.question=data;
+		$scope.first=false;
 		for(var i=0;i<$scope.question.questions.length;i++){
 			$scope.question.questions[i].show=false;
+			if($scope.question.questions[i].status=='first'){
+				$scope.first=true;
+			}
 		}
 		
 	});
@@ -279,8 +283,16 @@ app.controller('AddQuestionController',['$scope','$http','$routeParams','$locati
 				 		.success(function(data) {
 				 			data.choices=[];
 							$scope.question.questions.push(data);
+							$scope.first=false;
+							for(var i=0;i<$scope.question.questions.length;i++){
+								//console.log($scope.question.questions[i].status;
+								if($scope.question.questions[i].status=='first' || $scope.question.questions[i].status=='First Question'){
+									$scope.first=true;
+								}
 
 
+							}
+							console.log($scope.first,'add');
 							ngDialog.close();
 						});	
 					}
@@ -296,8 +308,16 @@ app.controller('AddQuestionController',['$scope','$http','$routeParams','$locati
 		if(del){
 			$http.get('/delquestion/'+$routeParems.qzid+"/"+id)
 			.success(function(data){
-
 				$scope.question.questions.splice(index,1);
+				$scope.first=false;
+				for(var i=0;i<$scope.question.questions.length;i++){
+					console.log($scope.question.questions[i].status);
+					if($scope.question.questions[i].status=='first' || $scope.question.questions[i].status=='First Question'){
+						//
+						$scope.first=true;
+					}
+				}
+				console.log($scope.first,'del');
 			})
 		}
 	};
@@ -346,8 +366,12 @@ app.controller('AddQuestionController',['$scope','$http','$routeParams','$locati
 								data.questions[i].status='Result';
 								$scope.rs.push(data.questions[i]);
 							}
-							else{
+							else if(data.questions[i].status=='next'){
 								data.questions[i].status="Question";
+								$scope.qn.push(data.questions[i]);
+							}
+							else{
+								data.questions[i].status="First Question";
 								$scope.qn.push(data.questions[i]);
 							}
 						}
@@ -528,9 +552,11 @@ app.controller('AddQuestionController',['$scope','$http','$routeParams','$locati
 					       		data: data
 						 	})
 					 		.success(function(data) {
+
 					 			//$scope.question.questions[index].choices[index2].name=data.name;
-				
+					 			//console.log($scope.question.questions[index],index,index2);
 					 			$scope.question.questions[index].choices[index2]=data;
+					 			$scope.question.questions[index].choices[index2].gostatus=data.gostatus;
 					 			ngDialog.close();
 							});		
 
@@ -592,6 +618,16 @@ app.directive('popoverElem', function(){
   };
 });
 
+app.controller("Chart", function ($scope) {
+	$scope.labels = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
+	$scope.series = ['Series A', 'Series B'];
+
+	$scope.data = [
+	[65, 59, 80, 81, 56, 55, 40],
+	[28, 48, 40, 19, 86, 27, 90]
+	];
+});
+
 app.config(['$routeProvider', '$locationProvider',
 	function($routeProvider, $locationProvider){
 	$routeProvider
@@ -618,6 +654,10 @@ app.config(['$routeProvider', '$locationProvider',
 		templateUrl:'js/pages/question.html',
 		controller: 'AddQuestionController'
 	})	
+	.when('/chart',{
+		templateUrl:'js/pages/chart.html',
+		controller: 'Chart'
+	})
 	.otherwise({
 		redirectTo: '/'
 	});

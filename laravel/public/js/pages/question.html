@@ -34,18 +34,18 @@
 					<div style="margin-left:30px">
 					Choice : 
 
-					
+	
 					<a href="" ng-if="ch.gostatus==='first' || ch.gostatus==='next'">
 						<button ng-click="goquestion(ch.goid)"  class="btn btn-link" tooltip="Go to Question : {{ch.goname}}">{{ch.name}}</button>
 					</a>
 
 					<a href="" ng-if="ch.gostatus==='result'" >
-						<button ng-click="editchoice(qn.id,ch.id,$parent.$index,$index,ch.name)"  class="btn btn-link" tooltip="Go to Result : {{ch.goname}}">{{ch.name}}</button>
+						<button ng-click="editchoice(qn.id,ch.id,$parent.$parent.$index,$index,ch.name)"  class="btn btn-link" tooltip="Go to Result : {{ch.goname}}">{{ch.name}}</button>
 						
 					</a>
 
 					<a href="" ng-if="!ch.hasOwnProperty('gostatus')">
-						<button ng-click="editchoice(qn.id,ch.id,$parent.$index,$index,ch.name)"  class="btn btn-link" tooltip="Go to doesn't exist">{{ch.name}}</button>
+						<button ng-click="editchoice(qn.id,ch.id,$parent.$parent.$index,$index,ch.name)"  class="btn btn-link" tooltip="Go to doesn't exist">{{ch.name}}</button>
 					</a>
 					</div>
 					</div>
@@ -69,7 +69,10 @@
 	</div>
 
 <div align="right" class="btn-q">
-		<button class="btn btn-primary" ng-click="addques()">Add Question</button>
+		{{first}}
+		<div  ng-if="!first && question.questions.length!=0"><button class="btn btn-info">Choose Your First Question</button></div>
+		<br>
+		<button class="btn btn-primary" ng-click="addques()">Add <span ng-if="question.questions.length==0">Your First</span> Question</button>
 
 		<button class="btn btn-warning" class="back" onclick="location.href='#add'">Back</button>
 </div>
